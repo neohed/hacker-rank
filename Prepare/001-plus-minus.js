@@ -27,29 +27,9 @@ function readLine() {
  */
 
 function plusMinus(arr) {
-    const {countPositive, countNegative, countZero}
-        = arr.reduce((acc, n) => {
-            let {countPositive, countNegative, countZero} = acc;
-            if (n === 0) {
-                countZero++
-            } else if (n < 0) {
-                countNegative++
-            } else {
-                countPositive++
-            }
-            
-            return {
-                countPositive, countNegative, countZero
-            }
-        }, {
-            countPositive: 0,
-            countNegative: 0,
-            countZero: 0
-        });
-        
-    const ratioPositive = countPositive / arr.length;
-    const ratioNegative = countNegative / arr.length;
-    const ratioZero = countZero / arr.length;
+    const ratioPositive = arr.filter(n => n > 0).length / arr.length;
+    const ratioNegative = arr.filter(n => n < 0).length / arr.length;
+    const ratioZero = arr.filter(n => n === 0).length / arr.length;
     
     console.log(ratioPositive.toFixed(6));
     console.log(ratioNegative.toFixed(6));
