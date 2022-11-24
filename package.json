@@ -1,0 +1,21 @@
+{
+  "name": "hacker-rank",
+  "version": "1.0.0",
+  "description": "alt/option + R : Run code\r alt/option + Enter : Submit code\r alt/option + F : Enable full screen\r Esc : Restore full screen",
+  "main": "test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neohed/hacker-rank.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/neohed/hacker-rank/issues"
+  },
+  "homepage": "https://github.com/neohed/hacker-rank#readme"
+}
