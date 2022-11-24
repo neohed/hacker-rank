@@ -1,32 +1,22 @@
+function calculateScores(scores) {
+    const {minCount, maxCount} = scores.reduce((acc, n) => {
+        let {min, max, minCount, maxCount} = acc;
 
+        if (n < min) {
+            min = n;
+            minCount++
+        }
+        if (n > max) {
+            max = n;
+            maxCount++
+        }
+        return {min, max, minCount, maxCount}
+    }, {
+        min: Number.MAX_SAFE_INTEGER,
+        max: Number.MIN_SAFE_INTEGER,
+        minCount: -1,
+        maxCount: -1
+    })
 
-const testCases = [
-    {
-        from: '12:01:00PM',
-        to: '12:01:00'
-    }, {
-        from: '12:59:00PM',
-        to: '12:59:00'
-    }, {
-        from: '12:01:00AM',
-        to: '00:01:00'
-    }, {
-        from: '12:59:00AM',
-        to: '00:59:00'
-    }, {
-        from: '12:49:00AM',
-        to: '00:49:00'
-    }, {
-        from: '11:49:00AM',
-        to: '11:49:00'
-    }, {
-        from: '12:49:00PM',
-        to: '12:49:00'
-    }, {
-        from: '01:49:00PM',
-        to: '13:49:00'
-    }, {
-        from: '06:40:03AM',
-        to: '06:40:03'
-    }
-]
+    return [maxCount, minCount]
+}
