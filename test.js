@@ -80,13 +80,16 @@ function flippingMatrix(matrix) {
 
         for (let j = 0; j < bits.length; j++) {
             const colMod = bits[j];
+            //console.log({rowMod,colMod})
             const copy = copyMatrix(matrix);
+            for (let k = 0; k < rowMod.length; k++) {
+                if (colMod[k] === 1) {
+                    flipColumn(copy, k)
+                }
+            }
             for (let k = 0; k < rowMod.length; k++) {
                 if (rowMod[k] === 1) {
                     flipRow(copy, k)
-                }
-                if (colMod[k] === 1) {
-                    flipColumn(copy, k)
                 }
             }
 
@@ -98,10 +101,12 @@ function flippingMatrix(matrix) {
     return total
 }
 
-//console.log(flippingMatrix(test))
+console.log(flippingMatrix(test))
+
+/*
 flipColumn(test, 2)
 console.log(test)
 flipRow(test, 0)
 console.log(test)
-
 console.log(sumGridQuadrant(test))
+*/
