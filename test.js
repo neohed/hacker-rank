@@ -44,9 +44,9 @@ function copyMatrix(matrix) {
 function flipRow(matrix, row) {
     const N2 = matrix.length - 1;
     const N = N2 / 2;
+    const theRow = matrix[row];
 
     for (let i = 0; i < N; i++) {
-        const theRow = matrix[row];
         const temp = theRow[N2 - i];
         theRow[N2 - i] = theRow[i];
         theRow[i] = temp
