@@ -12,27 +12,27 @@ using System.Linq;
 class Solution
 {
     static readonly List<ulong> primes = new() { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199 };
-    static readonly ulong[] sieve30 = new ulong[] {7, 11, 13, 17, 19, 23, 29, 31 };
+    static readonly ulong[] sieve30 = new ulong[] { 7, 11, 13, 17, 19, 23, 29, 31 };
     static readonly ulong WheelFactor = 30;
     static int sieveIndex = 7;
     static ulong wheelIndex = 180;
 
-    public static ulong FirstDivisor(ulong candidatePrime)
+    public static ulong FirstDivisor(ulong primeSuspect)
     {
-        var upper = (ulong)Math.Sqrt(candidatePrime);
+        var upper = (ulong)Math.Sqrt(primeSuspect);
 
-        for (ulong pass = 0; pass < upper; pass += WheelFactor)
+        for (ulong i = 0; i < upper; i += WheelFactor)
         {
             foreach (ulong sieve in sieve30)
             {
-                if (candidatePrime % (pass + sieve) == 0)
+                if (primeSuspect % (i + sieve) == 0)
                 {
-                    return pass + sieve;
+                    return i + sieve;
                 }
             }
         }
 
-        return candidatePrime;
+        return primeSuspect;
     }
 
     public static bool IsPrime(ulong primeSuspect)
@@ -77,7 +77,6 @@ class Solution
         {
             ulong prime = GetPrime(primeIndex++);
 
-            // while
             if (value % prime == 0)
             {
                 value /= prime;
