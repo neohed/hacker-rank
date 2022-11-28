@@ -3,39 +3,27 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
+/*
+ * https://www.codeproject.com/Articles/31085/Prime-Number-Determination-Using-Wheel-Factorizati
+ * https://social.technet.microsoft.com/wiki/contents/articles/21558.prime-number-sieve.aspx
+ * https://algotree.org/algorithms/numeric/prime_sieve/
+ */
+
 class Solution
 {
-    static List<ulong> primes = new() { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199 };
-
-    static ulong biggest = 199;
-
-    private static ulong[] aSieve30 = new ulong[]
-         {7, 11, 13, 17, 19, 23, 29, 31};
+    static readonly List<ulong> primes = new() { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199 };
+    static readonly ulong[] sieve30 = new ulong[] {7, 11, 13, 17, 19, 23, 29, 31 };
+    static readonly ulong WheelFactor = 30;
+    static int sieveIndex = 7;
+    static ulong wheelIndex = 180;
 
     public static ulong FirstDivisor(ulong candidatePrime)
     {
-        if (candidatePrime == 0)
-            throw new ArgumentException("Zero is an invalid parameter!");
+        var upper = (ulong)Math.Sqrt(candidatePrime);
 
-        List<ulong> firstPrimes =
-               new List<ulong>(new ulong[] { 2, 3, 5 });
-
-        ulong WheelFactor = 30;
-
-        if (candidatePrime == 1)
+        for (ulong pass = 0; pass < upper; pass += WheelFactor)
         {
-            return 0;
-        }
-        foreach (ulong prime in firstPrimes)
-        {
-            if (candidatePrime % prime == 0) return prime;
-        }
-
-        ulong theSqrt = (ulong)Math.Sqrt((double)candidatePrime);
-
-        for (ulong pass = 0; pass < theSqrt; pass += WheelFactor)
-        {
-            foreach (ulong sieve in aSieve30)
+            foreach (ulong sieve in sieve30)
             {
                 if (candidatePrime % (pass + sieve) == 0)
                 {
@@ -49,23 +37,32 @@ class Solution
 
     public static bool IsPrime(ulong primeSuspect)
     {
-        if (primeSuspect == 0) return false;
-        return (FirstDivisor(primeSuspect) == primeSuspect);
+        return FirstDivisor(primeSuspect) == primeSuspect;
     }
 
     static ulong GetPrime(int primeIndex)
     {
         if (primeIndex == primes.Count)
         {
+            ulong candy;
             bool found;
             do
             {
-                biggest++;
-                biggest++;
-                found = IsPrime(biggest);
+                candy = sieve30[sieveIndex] + wheelIndex;
+                if (sieveIndex == 7)
+                {
+                    sieveIndex = 0;
+                    wheelIndex += WheelFactor;
+                } else
+                {
+                    sieveIndex++;
+                }
+                found = IsPrime(candy);
             } while (!found);
 
-            primes.Add(biggest);
+            primes.Add(candy);
+
+            return candy;
         }
 
         return primes[primeIndex];
@@ -80,7 +77,8 @@ class Solution
         {
             ulong prime = GetPrime(primeIndex++);
 
-            while (value % prime == 0)
+            // while
+            if (value % prime == 0)
             {
                 value /= prime;
                 factors.Add(prime);
