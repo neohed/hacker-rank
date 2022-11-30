@@ -1,23 +1,89 @@
+const {arr} = require('../../data');
+
+const testCases = [
+    {
+        arr: [1, 2, 3, 4],
+        res: 0
+    }, {
+        arr: [1, 2, 4, 3],
+        res: 1
+    }, {
+        arr: [1, 4, 2, 3],
+        res: 2
+    }, {
+        arr: [1, 4, 3, 2],
+        res: 3
+    }, {
+        arr: [2, 1, 4, 3],
+        res: 2
+    }, {
+        arr: [2, 1, 5, 3, 4],
+        res: 3
+    }, {
+        arr: [2, 5, 1, 3, 4],
+        res: 'Too chaotic'
+    }, {
+        arr: [5, 1, 2, 3, 7, 8, 6, 4],
+        res: 'Too chaotic'
+    }, {
+        arr: [1, 2, 5, 3, 7, 8, 6, 4],
+        res: 7
+    }, {
+        arr: [1, 2, 5, 3, 4, 7, 8, 6],
+        res: 4
+    }, {
+        arr,
+        res: 966
+    }
+]
+
 function minimumBribes(q) {
-    let chaos = false;
     let i = 0;
     let bribes = 0;
+    let next = [1, 2, 3];
 
     do {
-        if (q[i] - 1 - i > 0) {
-            const diff = q[i] - i - 1;
-            bribes += diff;
-            chaos = diff > 2;
-        }
-        i++
-    } while (!chaos && i < q.length)
+        // Add index of next array if found in there and not actual_expected (i.e. equal to i + 1)
+        const current = q[i];
+        const expected = next.shift();
+        const actualDiff = current - 1 - i;
 
-    if (chaos) {
-        console.log('Too chaotic.')
-    } else {
-        console.log(bribes)
-    }
+        if (actualDiff > 2) {
+            return 'Too chaotic'
+        } else {
+            let bribeInc = 0;
+            if (actualDiff === 1 || actualDiff === 2) {
+                bribeInc = actualDiff
+            } // unchecked < 1
+
+            if (current !== expected) {
+                next.unshift(expected);
+
+                if (next.includes(current)) {
+                    bribeInc = next.indexOf(current);
+                    next = next.filter(n => n !== current)
+                }
+            }
+
+            bribes += bribeInc;
+            next.push(i + 4)
+        }
+
+        //console.log({i, current, expected, diff: current - expected, bribes});
+        //console.log(next)
+
+        i++
+    } while (i < q.length)
+
+    return bribes
 }
 
-minimumBribes([2, 1, 5, 3, 4]) // 3
-minimumBribes([2, 5, 1, 3, 4]) // chaos
+testCases.forEach(({arr, res}, i) => {
+    const actual = minimumBribes(arr);
+    if (actual === res) {
+        console.log(`Test ${i} passed`)
+    } else {
+        console.log(`Test ${i} FAIL! Expected: ${res}, actual: ${actual}`);
+        console.log(arr)
+    }
+})
