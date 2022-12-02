@@ -14,19 +14,27 @@ const cipher = 'NMRYBSD';
 const t = 'FLOWERS';
 
 let res = '';
+
+const aCode = 'A'.charCodeAt(0);
+const zCode = 'Z'.charCodeAt(0);
+let res2 = '';
 for (let i = 0; i < plain.length; i++) {
     const plainCode = plain.charCodeAt(i);
     const cipherCode = cipher.charCodeAt(i);
     const plainCodeN = plainCode - 65;
     const cipherCodeN = cipherCode - 65;
 
-    console.log(`${plain[i]} = ${plainCode}, ${cipher[i]} = ${cipherCode} diff = ${plainCode - cipherCode} ${cipherCode - plainCode}`);
-    console.log(`${plainCodeN} ${cipherCodeN}`)
+    //console.log(`${plain[i]} = ${plainCode}, ${cipher[i]} = ${cipherCode} diff = ${plainCode - cipherCode} ${cipherCode - plainCode} ${plainCodeN - cipherCodeN}`);
+    //console.log(`${plainCodeN} ${cipherCodeN}`)
 
-    const mod = plainCode - cipherCode;
-    const x = t[i].charCodeAt(0);
-    res += String.fromCharCode((Math.abs(x - 65 + mod) % 27) + 65)
+    let mod = plainCode - cipherCode;
+    const x = t[i].charCodeAt(0) - aCode;
+    console.log({x})
+    res += String.fromCharCode((Math.abs(x + mod) % 27) + aCode)
+    if (mod < 0) {
+        mod = 27 - mod
+    }
+    res2 += String.fromCharCode(Math.abs(plain[i].charCodeAt(0) + mod) % 27 + aCode)
 }
-console.log('A'.charCodeAt(0))
-console.log('Z'.charCodeAt(0))
-console.log(res)
+
+console.log(res2)
