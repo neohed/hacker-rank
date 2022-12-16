@@ -8,33 +8,24 @@ DQRWPMG
 FSTWNKE
 DQSWNKE
  */
+const aCode = 'A'.charCodeAt(0);
+const zCode = 'Z'.charCodeAt(0);
+const alphabetLength = zCode - aCode + 1; // 26
+const letterToAlphaIndex = letter => letter.charCodeAt(0) - aCode;
+const alphaIndexToLetter = code => String.fromCharCode(code + aCode);
 
 const plain = 'CRAYONS';
 const cipher = 'NMRYBSD';
-const t = 'FLOWERS';
+const textToEncode = 'FLOWERS';
 
 let res = '';
 
-const aCode = 'A'.charCodeAt(0);
-const zCode = 'Z'.charCodeAt(0);
-let res2 = '';
 for (let i = 0; i < plain.length; i++) {
-    const plainCode = plain.charCodeAt(i);
-    const cipherCode = cipher.charCodeAt(i);
-    const plainCodeN = plainCode - 65;
-    const cipherCodeN = cipherCode - 65;
-
-    //console.log(`${plain[i]} = ${plainCode}, ${cipher[i]} = ${cipherCode} diff = ${plainCode - cipherCode} ${cipherCode - plainCode} ${plainCodeN - cipherCodeN}`);
-    //console.log(`${plainCodeN} ${cipherCodeN}`)
-
-    let mod = plainCode - cipherCode;
-    const x = t[i].charCodeAt(0) - aCode;
-    console.log({x})
-    res += String.fromCharCode((Math.abs(x + mod) % 27) + aCode)
-    if (mod < 0) {
-        mod = 27 - mod
-    }
-    res2 += String.fromCharCode(Math.abs(plain[i].charCodeAt(0) + mod) % 27 + aCode)
+    const plainCode = letterToAlphaIndex(plain[i]);
+    const cipherCode = letterToAlphaIndex(cipher[i]);
+    const mod = cipherCode - plainCode;
+    const newCode = letterToAlphaIndex(textToEncode[i]) + mod;
+    res += alphaIndexToLetter(newCode)
 }
 
-console.log(res2)
+console.log(res)
