@@ -14,8 +14,7 @@ const nShift = sign => (c, offset) => {
     return String.fromCharCode(modAlpha(normalCode + (caesarV + offset) * sign) + A_CODE)
 }
 const applyCipher = (text, cipher) => text.toUpperCase().split('').map((c, i) => cipher(c, i)).join('');
-const splitBuckets = (text, bucketSize) => text.split('').reduce((acc, c, i) => {
-    const {buckets, part} = acc;
+const splitBuckets = (text, bucketSize) => text.split('').reduce(({buckets, part}, c, i) => {
     let newPart = part + c;
 
     if (newPart.length === bucketSize || i + 1 === text.length) {
@@ -37,7 +36,6 @@ const decode = nShift(-1)
 const plainText = 'Dave learned to paint rainbows...';
 const cipherText = applyCipher(plainText, encode);
 const decoded = applyCipher(cipherText, decode);
-
 const {buckets} = splitBuckets(decoded, 5);
 
 console.log({
