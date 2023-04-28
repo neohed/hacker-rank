@@ -1,4 +1,4 @@
-const {arr} = require('../../data');
+const {arr} = require('../../../data');
 
 const testCases = [
     {

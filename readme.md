@@ -1,5 +1,7 @@
 # Readme
 
+Hacker Rank, Codewars and project Euler sites and Cracking the Code Interview book.
+
 ## Shortcut keys (hotkeys)  allowed are:
 
 alt/option + R : Run code
