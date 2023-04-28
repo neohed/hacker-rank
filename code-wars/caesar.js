@@ -16,14 +16,11 @@ const nShift = sign => (c, offset) => {
 const applyCipher = (text, cipher) => text.toUpperCase().split('').map((c, i) => cipher(c, i)).join('');
 const splitBuckets = (text, bucketSize) => text.split('').reduce((acc, c, i) => {
     const {buckets, part} = acc;
-    const newPart = part + c;
+    let newPart = part + c;
 
     if (newPart.length === bucketSize || i + 1 === text.length) {
         buckets.push(newPart);
-        return {
-            buckets,
-            part: ''
-        }
+        newPart = ''
     }
 
     return {
