@@ -3,12 +3,11 @@
  */
 
 const caesarV = 5;
-const charCode = c => c.charCodeAt(0);
-const A_CODE = charCode('A');
+const A_CODE = 'A'.charCodeAt(0);
 const modAlpha = n => (n % 26 + 26) % 26;
 const normaliseCharCode = n => n - A_CODE;
 const nShift = sign => (c, offset) => {
-    const normalCode = normaliseCharCode(charCode(c));
+    const normalCode = normaliseCharCode(c.charCodeAt(0));
 
     if (normalCode < 0 || normalCode > 25) {
         return c
