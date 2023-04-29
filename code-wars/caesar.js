@@ -2,18 +2,17 @@
  * https://www.codewars.com/kata/5508249a98b3234f420000fb
  */
 
-const caesarV = 5;
+const CAESAR_V = 5;
 const A_CODE = 'A'.charCodeAt(0);
 const modAlpha = n => (n % 26 + 26) % 26;
-const normaliseCharCode = n => n - A_CODE;
 const nShift = sign => (c, offset) => {
-    const normalCode = normaliseCharCode(c.charCodeAt(0));
+    const normalisedCode = c.charCodeAt(0) - A_CODE;
 
-    if (normalCode < 0 || normalCode > 25) {
+    if (normalisedCode < 0 || normalisedCode > 25) {
         return c
     }
 
-    return String.fromCharCode(modAlpha(normalCode + (caesarV + offset) * sign) + A_CODE)
+    return String.fromCharCode(modAlpha(normalisedCode + (CAESAR_V + offset) * sign) + A_CODE)
 }
 const applyCipher = cipher => text => text.toUpperCase().split('').map(cipher).join('');
 const splitBuckets = (text, bucketSize) => text.split('').reduce(({buckets, part}, c, i) => {
