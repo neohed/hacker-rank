@@ -3,7 +3,6 @@
  */
 
 const caesarV = 5;
-
 const charCode = c => c.charCodeAt(0);
 const A_CODE = charCode('A');
 const modAlpha = n => (n % 26 + 26) % 26;
