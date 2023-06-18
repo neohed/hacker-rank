@@ -15,29 +15,14 @@ const nShift = (sign, shift) => (c, offset) => {
     return String.fromCharCode(modAlpha(normalisedCode + (shift + offset) * sign) + A_CODE)
 }
 const applyCipher = cipherStrategy => text => text.toUpperCase().split('').map(cipherStrategy).join('');
-const splitBuckets = (text, bucketSize) => text.split('').reduce(({buckets, part}, c, i) => {
-    let newPart = part + c;
-
-    if (newPart.length === bucketSize || i + 1 === text.length) {
-        buckets.push(newPart);
-        newPart = ''
-    }
-
-    return {
-        buckets,
-        part: newPart
-    }
-}, {
-    buckets: [],
-    part: ''
-});
+const splitBuckets = (text, bucketSize) => text.match(new RegExp(`.{1,${bucketSize}}`, 'g'));
 
 const encode = applyCipher(nShift(1, CAESAR_V));
 const decode = applyCipher(nShift(-1, CAESAR_V));
 const plainText = 'Dave learned to paint rainbows...';
 const cipherText = encode(plainText);
 const decoded = decode(cipherText);
-const {buckets} = splitBuckets(decoded, 5);
+const buckets = splitBuckets(decoded, 5);
 
 console.log({
     plainText,
