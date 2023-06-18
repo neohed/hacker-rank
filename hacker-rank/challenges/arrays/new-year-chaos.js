@@ -69,9 +69,6 @@ function minimumBribes(q) {
             next.push(i + 4)
         }
 
-        //console.log({i, current, expected, diff: current - expected, bribes});
-        //console.log(next)
-
         i++
     } while (i < q.length)
 
