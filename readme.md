@@ -1,6 +1,9 @@
 # Readme
 
-Hacker Rank, Codewars and project Euler sites and Cracking the Code Interview book.
+* Hacker Rank
+* Codewars
+* Project Euler
+* Cracking the Code Interview book.
 
 **First Variation on Caesar Cipher**
 
