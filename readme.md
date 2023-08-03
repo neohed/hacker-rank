@@ -29,6 +29,13 @@ const nShift = (sign, shift) => (c, offset) => {
 }
 const applyCipher = cipherStrategy => text => text.split('').map(cipherStrategy).join('');
 const splitBuckets = (text, bucketSize) => text.match(new RegExp(`.{1,${bucketSize}}`, 'g'));
+
+const encode = applyCipher(nShift(1, CAESAR_V));
+const decode = applyCipher(nShift(-1, CAESAR_V));
+const plainText = 'This is a secret...';
+const cipherText = encode(plainText);
+const decoded = decode(cipherText);
+const buckets = splitBuckets(decoded, 5);
 ```
 [full code](./code-wars/caesar.js)
 
