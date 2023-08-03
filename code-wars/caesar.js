@@ -26,7 +26,7 @@ const splitBuckets = (text, bucketSize) => text.match(new RegExp(`.{1,${bucketSi
 
 const encode = applyCipher(nShift(1, CAESAR_V));
 const decode = applyCipher(nShift(-1, CAESAR_V));
-const plainText = 'Dave learned to paint rainbows...';
+const plainText = 'This is a secret...';
 const cipherText = encode(plainText);
 const decoded = decode(cipherText);
 const buckets = splitBuckets(decoded, 5);
